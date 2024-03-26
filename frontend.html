@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/some-nice-basic-css/global.css"
+    />
+    <style>
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 20vw;
+        margin: auto;
+      }
+    </style>
+    <title>100ms: Video Streaming Server using NodeJS Tut</title>
+  </head>
+  <body>
+    <div class="container">
+      <video id="videoPlayer" controls></video>
+    </div>
+
+    <script>
+      fetch("http://localhost:3000/api/videos")
+        .then((response) => response.json())
+        .then((videos) => {
+          const videoId = "100ms-live"; // Set the desired video ID here
+          const video = videos[videoId];
+          const videoPlayer = document.getElementById("videoPlayer");
+          videoPlayer.src = `http://localhost:3000/api/videos/video/${videoId}`;
+          videoPlayer.play();
+        })
+        .catch((error) => {
+          console.error("Error fetching video metadata:", error);
+        });
+    </script>
+  </body>
+</html>
